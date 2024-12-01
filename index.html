@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apology Interaction</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: url('./IMG_9537[2].JPG') no-repeat center center;
+            background-size: cover;
+        }
+
+        .container {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.8);
+            border: 2px solid #ccc;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            position: relative;
+            width: 400px;
+        }
+
+        .message {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .tooltip {
+            font-size: 0.9rem;
+            margin-top: 10px;
+            color: #555;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button#yes {
+            background-color: #4caf50;
+            color: white;
+        }
+
+        button#yes:hover {
+            background-color: #45a049;
+        }
+
+        button#no {
+            background-color: #f44336;
+            color: white;
+            position: relative;
+        }
+
+        button#no:hover {
+            background-color: #d32f2f;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="message">Sorry for my behavior and action. Do you forgive me?</div>
+        <div class="buttons">
+            <button id="yes">Yes</button>
+            <button id="no">No</button>
+        </div>
+        <div class="tooltip" id="tooltip">Current position: 0px, 0px</div>
+    </div>
+
+    <script>
+        const yesButton = document.getElementById('yes');
+        const noButton = document.getElementById('no');
+        const tooltip = document.getElementById('tooltip');
+        const message = document.querySelector('.message');
+        const container = document.querySelector('.container');
+
+        yesButton.addEventListener('click', () => {
+            message.textContent = 'Thank you for forgiving me! 😊';
+            document.querySelector('.buttons').style.display = 'none';
+            tooltip.style.display = 'none';
+        });
+
+        noButton.addEventListener('mouseenter', () => {
+            // Randomly change the position of the "No" button within the container
+            const containerRect = container.getBoundingClientRect();
+            const buttonWidth = noButton.offsetWidth;
+            const buttonHeight = noButton.offsetHeight;
+
+            const maxX = containerRect.width - buttonWidth - 10; // Account for padding
+            const maxY = containerRect.height - buttonHeight - 10;
+
+            const randomX = Math.random() * maxX;
+            const randomY = Math.random() * maxY;
+
+            noButton.style.position = 'absolute';
+            noButton.style.left = `${randomX}px`;
+            noButton.style.top = `${randomY}px`;
+
+            // Update tooltip with the new position
+            tooltip.textContent = `Current position: ${randomX.toFixed(1)}px, ${randomY.toFixed(1)}px`;
+        });
+
+        // Initialize the "No" button position
+        noButton.style.position = 'relative';
+        noButton.style.left = '0';
+        noButton.style.top = '0';
+    </script>
+</body>
+</html>
